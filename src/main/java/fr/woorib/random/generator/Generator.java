@@ -1,5 +1,7 @@
 package fr.woorib.random.generator;
 
+import java.util.Random;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -26,4 +28,20 @@ public interface Generator<T> extends Supplier<T> {
      * @return a newly configured Generator
      */
     default Generator<T> moreThan(T after) { return this; }
+
+    default Thread startGenerating(Consumer<T> consumer, int maxInterval) {
+        Thread thread = new Thread(
+                () -> {
+                    while (true) {
+                        consumer.accept(get());
+                        try {
+                            Thread.sleep(new Random().nextInt(maxInterval));
+                        } catch (InterruptedException e) {
+
+                        }
+                    }
+                });
+        thread.start();
+        return thread;
+    }
 }

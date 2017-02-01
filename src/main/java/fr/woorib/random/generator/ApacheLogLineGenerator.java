@@ -19,7 +19,7 @@ public class ApacheLogLineGenerator implements Generator {
     private String[] users = new String[]{"bob", "anne", "delta"};
     private String[] requests = new String[]{"GET /fav.ico", "GET /index.html", "GET /pages/gallery.php"};
 
-    public ApacheLogLineGenerator() {
+    public ApacheLogLineGenerator(Boolean now) {
         Supplier statusCodesGenerator;
         try {
             File dictionaryFile = new File(getClass().getClassLoader().getResource("./http_status_codes").getFile());
@@ -29,11 +29,16 @@ public class ApacheLogLineGenerator implements Generator {
             e.printStackTrace();
             statusCodesGenerator = () -> new Random().nextInt(550);
         }
-
-        ZonedDateTime today = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS);
-        ZonedDateTime tomorrow = today.plusDays(1);
+        Generator zonedDateTimeGenerator;
+        if(now) {
+            zonedDateTimeGenerator = () -> ZonedDateTime.now();
+        } else {
+            ZonedDateTime today = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS);
+            ZonedDateTime tomorrow = today.plusDays(1);
+            zonedDateTimeGenerator = new ZonedDateTimeGenerator().moreThan(today).lessThan(tomorrow);
+        }
         generator = new ObjectGenerator(ApacheLogLine.class)
-                .with(ZonedDateTime.class, new ZonedDateTimeGenerator().moreThan(today).lessThan(tomorrow))
+                .with(ZonedDateTime.class, zonedDateTimeGenerator)
                 .with("user", new DictionaryGenerator(Arrays.asList(users)))
                 .with(String.class, new DictionaryGenerator(Arrays.asList(requests)))
                 .with("statusCode", statusCodesGenerator)
