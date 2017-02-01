@@ -1,14 +1,18 @@
 package fr.woorib.random.generator;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Created by baudoin on 01/02/2017.
  * Interface for generators
  */
 public interface Generator<T> extends Supplier<T> {
+    Map<Generator, Thread> runningThreads = new HashMap<>();
     /**
      * Genrate a random object of type T
      * @return an object of type T
@@ -29,7 +33,16 @@ public interface Generator<T> extends Supplier<T> {
      */
     default Generator<T> moreThan(T after) { return this; }
 
-    default Thread startGenerating(Consumer<T> consumer, int maxInterval) {
+    /**
+     * Start a thread generating T objects at a random interval under maxInterval.
+     * The generated objects are passed on to the consumer.
+     * @param consumer
+     * @param maxInterval
+     */
+    default void startGenerating(Consumer<T> consumer, int maxInterval) {
+        if (runningThreads.containsKey(this)) {
+            throw new RuntimeException("Generation already underway");
+        }
         Thread thread = new Thread(
                 () -> {
                     while (true) {
@@ -42,6 +55,26 @@ public interface Generator<T> extends Supplier<T> {
                     }
                 });
         thread.start();
-        return thread;
+        runningThreads.put(this, thread);
+    }
+
+    /**
+     * Stops the generation of T objects by this generator.
+     */
+    default void stopGenerating() {
+        Thread thread = runningThreads.get(this);
+        if (thread != null) {
+            thread.interrupt();
+            runningThreads.remove(this);
+        }
+    }
+
+    /**
+     * Get a stream of amount objects of class T
+     * @param amount
+     * @return
+     */
+    default Stream<T> get(int amount) {
+        return Stream.generate(this).limit(amount);
     }
 }
