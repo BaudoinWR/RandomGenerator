@@ -37,7 +37,7 @@ public interface Generator<T> extends Supplier<T> {
                         try {
                             Thread.sleep(new Random().nextInt(maxInterval));
                         } catch (InterruptedException e) {
-
+                            return;
                         }
                     }
                 });

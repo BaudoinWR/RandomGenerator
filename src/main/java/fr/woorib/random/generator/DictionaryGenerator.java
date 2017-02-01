@@ -41,19 +41,19 @@ public class DictionaryGenerator<T extends Comparable> implements Generator<T> {
 
     @Override
     public Generator<T> lessThan(T before) {
-        List<Comparable> filtered = this.dictionary.stream()
+        List<T> filtered = this.dictionary.stream()
                 .filter(s ->  s.compareTo(before) < 0)
                 .collect(Collectors.toList());
 
-        return new DictionaryGenerator(filtered);
+        return new DictionaryGenerator<>(filtered);
     }
 
     @Override
     public Generator<T> moreThan(T after) {
-        List<Comparable> filtered = this.dictionary.stream()
+        List<T> filtered = this.dictionary.stream()
                 .filter(s ->  s.compareTo(after) > 0)
                 .collect(Collectors.toList());
 
-        return new DictionaryGenerator(filtered);
+        return new DictionaryGenerator<>(filtered);
     }
 }

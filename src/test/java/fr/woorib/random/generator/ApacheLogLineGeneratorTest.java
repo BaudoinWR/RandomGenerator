@@ -23,7 +23,7 @@ public class ApacheLogLineGeneratorTest {
     public void testStreamGenerator() throws InterruptedException {
         generator = new ApacheLogLineGenerator(true);
         Thread thread = generator.startGenerating(System.out::println, 2000);
-        Thread.sleep(120_000);
+        Thread.sleep(5_000);
         thread.interrupt();
     }
 }
