@@ -17,19 +17,19 @@ public class IpGeneratorTest {
 
     @Test
     public void testIpGenerated() throws UnknownHostException {
-        System.out.println(generator.generate());
-        System.out.println(generator.generate());
-        System.out.println(generator.generate());
-        System.out.println(generator.generate());
-        System.out.println(generator.generate());
+        System.out.println(generator.get());
+        System.out.println(generator.get());
+        System.out.println(generator.get());
+        System.out.println(generator.get());
+        System.out.println(generator.get());
     }
 
     @Test
     public void testSubnetIpGenerated() {
-        System.out.println(generator.inSubnet(subnet).generate());
-        System.out.println(generator.inSubnet(subnet).generate());
-        System.out.println(generator.inSubnet(subnet).generate());
-        System.out.println(generator.inSubnet(subnet).generate());
-        System.out.println(generator.inSubnet(subnet).generate());
+        System.out.println(generator.inSubnet(subnet).get());
+        System.out.println(generator.inSubnet(subnet).get());
+        System.out.println(generator.inSubnet(subnet).get());
+        System.out.println(generator.inSubnet(subnet).get());
+        System.out.println(generator.inSubnet(subnet).get());
     }
 }

@@ -13,34 +13,34 @@ import java.util.stream.Collectors;
  * Generation of String based on a dictionary.
  * The generator choses a random line in the dictionary file and returns it.
  */
-public class DictionaryGenerator implements Generator<Comparable> {
+public class DictionaryGenerator<T extends Comparable> implements Generator<T> {
 
-    private List<Comparable> dictionary = new ArrayList();
+    private List<T> dictionary = new ArrayList();
     Random random = new Random();
 
     public DictionaryGenerator(File dictionaryFile) throws FileNotFoundException {
         try (Scanner in = new Scanner(dictionaryFile)){
             while (in.hasNextLine()) {
-                this.dictionary.add(in.nextLine());
+                this.dictionary.add((T) in.nextLine());
             }
         }
     }
 
-    public DictionaryGenerator(List<Comparable> dictionary) {
+    public DictionaryGenerator(List<T> dictionary) {
         this.dictionary = dictionary;
     }
 
     @Override
-    public Comparable generate() {
+    public T get() {
         if (dictionary.size() == 0) {
-            return "";
+            return null;
         }
-        int i = random.nextInt(dictionary.size() - 1);
+        int i = random.nextInt(dictionary.size());
         return dictionary.get(i);
     }
 
     @Override
-    public Generator<Comparable> lessThan(Comparable before) {
+    public Generator<T> lessThan(T before) {
         List<Comparable> filtered = this.dictionary.stream()
                 .filter(s ->  s.compareTo(before) < 0)
                 .collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class DictionaryGenerator implements Generator<Comparable> {
     }
 
     @Override
-    public Generator<Comparable> moreThan(Comparable after) {
+    public Generator<T> moreThan(T after) {
         List<Comparable> filtered = this.dictionary.stream()
                 .filter(s ->  s.compareTo(after) > 0)
                 .collect(Collectors.toList());

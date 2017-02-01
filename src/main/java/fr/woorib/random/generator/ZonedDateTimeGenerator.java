@@ -16,7 +16,7 @@ public class ZonedDateTimeGenerator implements Generator<ZonedDateTime> {
     private Random random = new Random();
 
     @Override
-    public ZonedDateTime generate() {
+    public ZonedDateTime get() {
         long upper = upperBound.toInstant().toEpochMilli();
         long lower = lowerBound.toInstant().toEpochMilli();
         long generated = (long) (lower + (random.nextDouble() * (upper - lower)));

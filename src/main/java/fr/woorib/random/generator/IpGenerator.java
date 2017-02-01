@@ -16,7 +16,7 @@ public class IpGenerator implements Generator<InetAddress> {
     Supplier<Byte> getFourth = () -> (byte) random.nextInt(255);
 
     @Override
-    public InetAddress generate() {
+    public InetAddress get() {
         try {
             InetAddress byAddress = InetAddress.getByAddress(
                     new byte[]{getFirst.get(),

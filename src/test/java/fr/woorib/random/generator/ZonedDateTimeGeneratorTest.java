@@ -49,27 +49,27 @@ public class ZonedDateTimeGeneratorTest {
 
     @Test
     public void testGenerateZonedDateTime() {
-        ZonedDateTime timestamp = generator.generate();
+        ZonedDateTime timestamp = generator.get();
         Assertions.assertNotNull(timestamp);
     }
 
     @Test
     public void testGenerateZonedDateTimeBefore() {
-        ZonedDateTime timestamp = generator.lessThan(before).generate();
+        ZonedDateTime timestamp = generator.lessThan(before).get();
         System.out.println(timestamp.format(formatter));
         Assertions.assertTrue(timestamp.toOffsetDateTime().isBefore(before.toOffsetDateTime()));
     }
 
     @Test
     public void testGenerateZonedDateTimeAfter() {
-        ZonedDateTime timestamp = generator.moreThan(after).generate();
+        ZonedDateTime timestamp = generator.moreThan(after).get();
         System.out.println(timestamp.format(formatter));
         Assertions.assertTrue(timestamp.toOffsetDateTime().isAfter(after.toOffsetDateTime()));
     }
 
     @Test
     public void testGenrateZonedDateTimeBetween() {
-        ZonedDateTime timestamp = generator.moreThan(after).lessThan(before).generate();
+        ZonedDateTime timestamp = generator.moreThan(after).lessThan(before).get();
         System.out.println(timestamp.format(formatter));
         Assertions.assertTrue(timestamp.toOffsetDateTime().isAfter(after.toOffsetDateTime())
                 && timestamp.toOffsetDateTime().isBefore(before.toOffsetDateTime()));
