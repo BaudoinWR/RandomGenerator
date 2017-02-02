@@ -15,7 +15,7 @@ import java.time.temporal.ChronoField;
  */
 public class ZonedDateTimeGeneratorTest {
 
-    private ZonedDateTimeGenerator generator;
+    private ZonedDateTimeGenerator generator = new ZonedDateTimeGenerator();
     private static final ZonedDateTime before;
     private static final ZonedDateTime after;
     private static final DateTimeFormatter formatter;
@@ -39,12 +39,6 @@ public class ZonedDateTimeGeneratorTest {
                         .appendValue(ChronoField.MILLI_OF_SECOND, 3)
                         .toFormatter();
         System.out.println(after.format(formatter));
-    }
-
-
-    @BeforeEach
-    public void init() {
-        generator = new ZonedDateTimeGenerator();
     }
 
     @Test
