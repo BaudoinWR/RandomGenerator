@@ -34,4 +34,17 @@ public class ZonedDateTimeGenerator implements Generator<ZonedDateTime> {
         this.lowerBound = after;
         return this;
     }
+
+    /**
+     * Generate ZonedDateTime for the specific day given.
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
+    public ZonedDateTimeGenerator onDay(int year, int month, int day) {
+        lowerBound = ZonedDateTime.of(year, month, day, 0, 0, 0, 0, ZoneId.systemDefault());
+        upperBound = lowerBound.plusDays(1);
+        return this;
+    }
 }

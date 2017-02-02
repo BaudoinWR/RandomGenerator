@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * Created by baudoin on 01/02/2017.
  * Generates Log lines in the format of the common access logs from apache
  */
-public class ApacheLogLineGenerator implements Generator {
+public class ApacheLogLineGenerator implements Generator<ApacheLogLine> {
     private Random random = new Random();
     private ObjectGenerator<ApacheLogLine> generator;
 
@@ -87,6 +87,26 @@ public class ApacheLogLineGenerator implements Generator {
      */
     public ApacheLogLineGenerator withDataSizeGenerator(Supplier<Integer> generator) {
         this.generator.with("dataSize", generator);
+        return this;
+    }
+
+    /**
+     * Specifies how to generate userAgent
+     * @param generator
+     * @return
+     */
+    public ApacheLogLineGenerator withUserAgentGenerator(DictionaryGenerator<String> generator) {
+        this.generator.with("userAgent", generator);
+        return this;
+    }
+
+    /**
+     * Specifies how to generate referer
+     * @param generator
+     * @return
+     */
+    public ApacheLogLineGenerator withRefererGenerator(DictionaryGenerator<String> generator) {
+        this.generator.with("referer", generator);
         return this;
     }
 }
