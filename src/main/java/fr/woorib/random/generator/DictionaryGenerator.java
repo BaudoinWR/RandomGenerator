@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by baudoin on 01/02/2017.
  * Generation of String based on a dictionary.
- * The generator choses a random line in the dictionary file and returns it.
+ * The generator chooses a random line in the dictionary file and returns it.
  */
 public class DictionaryGenerator<T extends Comparable> implements Generator<T> {
 
