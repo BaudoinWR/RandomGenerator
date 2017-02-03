@@ -36,6 +36,8 @@ public class ApacheLogLineGeneratorTest {
                 .withUserGenerator(new DictionaryGenerator<>(Arrays.asList(users)))
                 .withRequestGenerator(new DictionaryGenerator<>(Arrays.asList(requests)))
                 .withStatusCodeGenerator(statusCodesGenerator)
+                .withUserAgentGenerator(() -> "curl")
+                .withRefererGenerator(() -> "http://google.fr")
                 .withDataSizeGenerator(() -> new Random().nextInt(1_000_000));
 
     }

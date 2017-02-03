@@ -15,6 +15,7 @@ public class ObjectGeneratorTest {
     ObjectGenerator<User> generator = new ObjectGenerator(User.class);
     private static final ZonedDateTime before = ZonedDateTime.of(1986, 9, 5, 0, 0, 0, 0, ZoneId.systemDefault());
     private static final ZonedDateTime after = ZonedDateTime.of(1980, 6, 2, 0, 0, 0, 0, ZoneId.systemDefault());
+
     @Test
     public void testGenerateLogLine() throws InstantiationException, IllegalAccessException, FileNotFoundException {
         DictionaryGenerator nameGenerator = new DictionaryGenerator(new File(getClass().getClassLoader().getResource("./first-names.txt").getFile()));
@@ -23,6 +24,10 @@ public class ObjectGeneratorTest {
         System.out.println(generate);
     }
 
-
+    @Test
+    public void testGenericMoreThan() {
+        generator.moreThan(new User()).get();
+        generator.lessThan(new User()).get();
+    }
 
 }

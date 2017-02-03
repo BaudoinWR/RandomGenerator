@@ -1,5 +1,6 @@
 package fr.woorib.random.generator;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.net.InetAddress;
@@ -25,11 +26,11 @@ public class IpGeneratorTest {
     }
 
     @Test
-    public void testSubnetIpGenerated() {
+    public void testSubnetIpGenerated() throws UnknownHostException {
         System.out.println(generator.inSubnet(subnet).get());
-        System.out.println(generator.inSubnet(subnet).get());
-        System.out.println(generator.inSubnet(subnet).get());
-        System.out.println(generator.inSubnet(subnet).get());
-        System.out.println(generator.inSubnet(subnet).get());
+        System.out.println(generator.inSubnet(InetAddress.getByAddress(new byte[] {0,0,0,0})).get());
+        System.out.println(generator.inSubnet(InetAddress.getByAddress(new byte[] {112,0,0,0})).get());
+        System.out.println(generator.inSubnet(InetAddress.getByAddress(new byte[] {112,25,2,0})).get());
+        System.out.println(generator.inSubnet(InetAddress.getByAddress(new byte[] {112,25,2,1})).get());
     }
 }

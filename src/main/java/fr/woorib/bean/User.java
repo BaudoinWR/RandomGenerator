@@ -22,32 +22,16 @@ public class User {
                 '}';
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public InetAddress getIp() {
-        return ip;
-    }
-
     public void setIp(InetAddress ip) {
         this.ip = ip;
-    }
-
-    public ZonedDateTime getDateOfBirth() {
-        return dateOfBirth;
     }
 
     public void setDateOfBirth(ZonedDateTime dateOfBirth) {

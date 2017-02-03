@@ -95,7 +95,7 @@ public class ApacheLogLineGenerator implements Generator<ApacheLogLine> {
      * @param generator
      * @return
      */
-    public ApacheLogLineGenerator withUserAgentGenerator(DictionaryGenerator<String> generator) {
+    public ApacheLogLineGenerator withUserAgentGenerator(Supplier<String> generator) {
         this.generator.with("userAgent", generator);
         return this;
     }
@@ -105,7 +105,7 @@ public class ApacheLogLineGenerator implements Generator<ApacheLogLine> {
      * @param generator
      * @return
      */
-    public ApacheLogLineGenerator withRefererGenerator(DictionaryGenerator<String> generator) {
+    public ApacheLogLineGenerator withRefererGenerator(Supplier<String> generator) {
         this.generator.with("referer", generator);
         return this;
     }

@@ -25,9 +25,8 @@ public class IpGenerator implements Generator<InetAddress> {
                             getFourth.get()});
             return byAddress;
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Generator<InetAddress> inSubnet(InetAddress subnet) {
@@ -47,13 +46,4 @@ public class IpGenerator implements Generator<InetAddress> {
         return this;
     }
 
-    @Override
-    public Generator<InetAddress> lessThan(InetAddress before) {
-        return null;
-    }
-
-    @Override
-    public Generator<InetAddress> moreThan(InetAddress after) {
-        return null;
-    }
 }

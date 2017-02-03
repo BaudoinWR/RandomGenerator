@@ -68,4 +68,12 @@ public class ZonedDateTimeGeneratorTest {
         Assertions.assertTrue(timestamp.toOffsetDateTime().isAfter(after.toOffsetDateTime())
                 && timestamp.toOffsetDateTime().isBefore(before.toOffsetDateTime()));
     }
+
+    @Test
+    public void testGenrateZonedDateOnDay() {
+        ZonedDateTime timestamp = generator.onDay(2017, 1, 1).get();
+        Assertions.assertEquals(2017, timestamp.getYear());
+        Assertions.assertEquals(1, timestamp.getMonthValue());
+        Assertions.assertEquals(1, timestamp.getDayOfMonth());
+    }
 }
